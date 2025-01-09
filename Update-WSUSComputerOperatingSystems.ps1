@@ -368,6 +368,12 @@ $OSDescriptions = @(
                 OSMinorVersion = 0
                 OSBuildNumber = 25398
             }
+            @{
+                ProductVersion = ' 2025'
+                OSMajorVersion = 10
+                OSMinorVersion = 0
+                OSBuildNumber = 26100
+            }
         )
         ProductTypes = @(
             # Based on https://learn.microsoft.com/en-us/dotnet/api/microsoft.powershell.commands.operatingsystemsku
