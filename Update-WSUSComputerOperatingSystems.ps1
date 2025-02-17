@@ -9,140 +9,223 @@ Param (
 # Requires SqlServer PowerShell module to be installed, tested with 16.5.0
 Import-Module SqlServer -MinimumVersion 16.5.0
 
+$ClientProductVersions = @(
+    # Based on https://learn.microsoft.com/en-us/windows/release-health/release-information
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1507'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 10240
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1511'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 10586
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1607'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 14393
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1703'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 15063
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1709'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 16299
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1803'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 17134
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1809'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 17763
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1903'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 18362
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 1909'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 18363
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 2004'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 19041
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 20H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 19042
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 21H1'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 19043
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 21H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 19044
+    }
+    @{
+        ProductVersion = ' 10'
+        ProductRelease = ' 22H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 19045
+    }
+    # Based on https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information
+    @{
+        ProductVersion = ' 11'
+        ProductRelease = ' 21H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 22000
+    }
+    @{
+        ProductVersion = ' 11'
+        ProductRelease = ' 22H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 22621
+    }
+    @{
+        ProductVersion = ' 11'
+        ProductRelease = ' 23H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 22631
+    }
+    @{
+        ProductVersion = ' 11'
+        ProductRelease = ' 24H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 26100
+    }
+)
+
+$ServerProductVersions = @(
+    # Based on https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info
+    @{
+        ProductVersion = ' 2012'
+        OSMajorVersion = 6
+        OSMinorVersion = 2
+        OSBuildNumber = 9200
+    }
+    @{
+        ProductVersion = ' 2012 R2'
+        OSMajorVersion = 6
+        OSMinorVersion = 3
+        OSBuildNumber = 9600
+    }
+    @{
+        ProductVersion = ' 2016'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 14393
+    }
+    @{
+        ProductVersion = ', version 1709'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 16299
+    }
+    @{
+        ProductVersion = ', version 1803'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 17134
+    }
+    @{
+        ProductVersion = ' 2019'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 17763
+    }
+    @{
+        ProductVersion = ', version 1903'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 18362
+    }
+    @{
+        ProductVersion = ', version 1909'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 18363
+    }
+    @{
+        ProductVersion = ', version 2004'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 19041
+    }
+    @{
+        ProductVersion = ', version 20H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 19042
+    }
+    @{
+        ProductVersion = ' 2022'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 20348
+    }
+    @{
+        ProductVersion = ', version 23H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 25398
+    }
+    @{
+        ProductVersion = ' 2025'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 26100
+    }
+)
+
 $OSDescriptions = @(
     @{
         ProductName = 'Windows'
-        OldProductTypes = @(1)
-        ProductVersions = @(
-            # Based on https://learn.microsoft.com/en-us/windows/release-health/release-information
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1507'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 10240
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1511'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 10586
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1607'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 14393
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1703'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 15063
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1709'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 16299
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1803'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 17134
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1809'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 17763
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1903'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 18362
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 1909'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 18363
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 2004'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 19041
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 20H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 19042
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 21H1'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 19043
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 21H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 19044
-            }
-            @{
-                ProductVersion = ' 10'
-                ProductRelease = ' 22H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 19045
-            }
-            # Based on https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information
-            @{
-                ProductVersion = ' 11'
-                ProductRelease = ' 21H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 22000
-            }
-            @{
-                ProductVersion = ' 11'
-                ProductRelease = ' 22H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 22621
-            }
-            @{
-                ProductVersion = ' 11'
-                ProductRelease = ' 23H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 22631
-            }
-            @{
-                ProductVersion = ' 11'
-                ProductRelease = ' 24H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 26100
-            }
-        )
+        ProductVersions = $ClientProductVersions
         ProductTypes = @(
             # Based on https://learn.microsoft.com/en-us/mem/intune/fundamentals/filters-device-properties
             @{
@@ -293,88 +376,7 @@ $OSDescriptions = @(
     }
     @{
         ProductName = 'Windows Server'
-        OldProductTypes = @(2, 3)
-        ProductVersions = @(
-            # Based on https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info
-            @{
-                ProductVersion = ' 2012'
-                OSMajorVersion = 6
-                OSMinorVersion = 2
-                OSBuildNumber = 9200
-            }
-            @{
-                ProductVersion = ' 2012 R2'
-                OSMajorVersion = 6
-                OSMinorVersion = 3
-                OSBuildNumber = 9600
-            }
-            @{
-                ProductVersion = ' 2016'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 14393
-            }
-            @{
-                ProductVersion = ', version 1709'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 16299
-            }
-            @{
-                ProductVersion = ', version 1803'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 17134
-            }
-            @{
-                ProductVersion = ' 2019'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 17763
-            }
-            @{
-                ProductVersion = ', version 1903'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 18362
-            }
-            @{
-                ProductVersion = ', version 1909'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 18363
-            }
-            @{
-                ProductVersion = ', version 2004'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 19041
-            }
-            @{
-                ProductVersion = ', version 20H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 19042
-            }
-            @{
-                ProductVersion = ' 2022'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 20348
-            }
-            @{
-                ProductVersion = ', version 23H2'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 25398
-            }
-            @{
-                ProductVersion = ' 2025'
-                OSMajorVersion = 10
-                OSMinorVersion = 0
-                OSBuildNumber = 26100
-            }
-        )
+        ProductVersions = $ServerProductVersions
         ProductTypes = @(
             # Based on https://learn.microsoft.com/en-us/dotnet/api/microsoft.powershell.commands.operatingsystemsku
             @{
@@ -394,10 +396,6 @@ $OSDescriptions = @(
                 NewProductTypes = @(80, 159)
             }
             @{
-                ProductName = 'Hyper-V Server'
-                NewProductTypes = @(42)
-            }
-            @{
                 ProductEdition= ' Foundation'
                 NewProductTypes = @(33)
             }
@@ -407,36 +405,37 @@ $OSDescriptions = @(
             }
         )
     }
+    @{
+        ProductName = 'Hyper-V Server'
+        ProductVersions = $OSServerVersions
+        ProductTypes = @(
+            @{
+                ProductEdition = ''
+                NewProductTypes = @(42)
+            }
+        )
+    }
 )
 
 $SqlcmdQuery = "USE [SUSDB]"
 
 foreach ($OSDescription in $OSDescriptions) {
-    foreach ($OldProductType in $OSDescription.OldProductTypes) {
-        foreach ($ProductVersion in $OSDescription.ProductVersions) {
-            foreach ($ProductType in $OSDescription.ProductTypes) {
-                foreach ($NewProductType in $ProductType.NewProductTypes) {
-                    if ($ProductType.ProductName) {
-                        $FullOSDescription = "$($ProductType.ProductName)$($ProductVersion.ProductVersion)$($ProductType.ProductEdition)$($ProductVersion.ProductRelease)"
-                    } else
-                    {
-                        $FullOSDescription = "$($OSDescription.ProductName)$($ProductVersion.ProductVersion)$($ProductType.ProductEdition)$($ProductVersion.ProductRelease)"
-                    }
-                    $SqlcmdQuery += "`r`n" + (('UPDATE [dbo].[tbComputerTargetDetail]',
-                    "SET [OSDescription] = `'$FullOSDescription`'",
-                    'WHERE',
-                    "[OSMajorVersion] = $($ProductVersion.OSMajorVersion)",
-                    'AND',
-                    "[OSMinorVersion] = $($ProductVersion.OSMinorVersion)",
-                    'AND',
-                    "[OSBuildNumber] = $($ProductVersion.OSBuildNumber)",
-                    'AND',
-                    "[OldProductType] = $($OldProductType)",
-                    'AND',
-                    "[NewProductType] = $($NewProductType)",
-                    'AND',
-                    "( [OSDescription] <> `'$FullOSDescription`' OR [OSDescription] IS NULL )") -join "`r`n")
-                }
+    foreach ($ProductVersion in $OSDescription.ProductVersions) {
+        foreach ($ProductType in $OSDescription.ProductTypes) {
+            foreach ($NewProductType in $ProductType.NewProductTypes) {
+                $FullOSDescription = "$($OSDescription.ProductName)$($ProductVersion.ProductVersion)$($ProductType.ProductEdition)$($ProductVersion.ProductRelease)"
+                $SqlcmdQuery += "`r`n" + (('UPDATE [dbo].[tbComputerTargetDetail]',
+                "SET [OSDescription] = `'$FullOSDescription`'",
+                'WHERE',
+                "[OSMajorVersion] = $($ProductVersion.OSMajorVersion)",
+                'AND',
+                "[OSMinorVersion] = $($ProductVersion.OSMinorVersion)",
+                'AND',
+                "[OSBuildNumber] = $($ProductVersion.OSBuildNumber)",
+                'AND',
+                "[NewProductType] = $($NewProductType)",
+                'AND',
+                "( [OSDescription] <> `'$FullOSDescription`' OR [OSDescription] IS NULL )") -join "`r`n")
             }
         }
     }
