@@ -12,6 +12,18 @@ Import-Module SqlServer -MinimumVersion 16.5.0
 $ClientProductVersions = @(
     # Based on https://learn.microsoft.com/en-us/windows/release-health/release-information
     @{
+        ProductVersion = ' 8'
+        OSMajorVersion = 6
+        OSMinorVersion = 2
+        OSBuildNumber = 9200
+    }
+    @{
+        ProductVersion = ' 8.1'
+        OSMajorVersion = 6
+        OSMinorVersion = 3
+        OSBuildNumber = 9600
+    }
+    @{
         ProductVersion = ' 10'
         ProductRelease = ' 1507'
         OSMajorVersion = 10
