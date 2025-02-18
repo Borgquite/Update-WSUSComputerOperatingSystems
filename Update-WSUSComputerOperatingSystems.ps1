@@ -1,5 +1,6 @@
 # Update tbComputerTargetDetail for WSUS to add more details in OSDescription field (based on https://www.wsus.de/windows-editionen-anzeigen/)
 # See also https://server-essentials.com/support/windows-10-vista-wsus-not-updating
+# See also https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-wusp/5f216289-0876-4dc3-ad85-e1d61a9e7ce1#Appendix_A_13
 
 Param (
     [Parameter()][String]$SQLServerInstance = '\\.\pipe\MICROSOFT##WID\tsql\query',
@@ -239,7 +240,9 @@ $OSDescriptions = @(
         ProductName = 'Windows'
         ProductVersions = $ClientProductVersions
         ProductTypes = @(
+            # Based on https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem
             # Based on https://learn.microsoft.com/en-us/mem/intune/fundamentals/filters-device-properties
+            # Based on https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getproductinfo
             @{
                 ProductEdition = ' S'
                 NewProductTypes = @(178)
@@ -345,6 +348,18 @@ $OSDescriptions = @(
                 NewProductTypes = @(188)
             }
             @{
+                ProductEdition = ' IoT Enterprise LTSC'
+                NewProductTypes = @(191)
+            }
+            @{
+                ProductEdition = ' Mobile'
+                NewProductTypes = @(104)
+            }
+            @{
+                ProductEdition = ' Mobile Enterprise'
+                NewProductTypes = @(133)
+            }
+            @{
                 ProductEdition = ' Team'
                 NewProductTypes = @(119)
             }
@@ -365,11 +380,7 @@ $OSDescriptions = @(
                 NewProductTypes = @(161)
             }
             @{
-                ProductEdition = ' Pro N for Workstations'
-                NewProductTypes = @(162)
-            }
-            @{
-                ProductEdition = ' Pro N for Workstations'
+                ProductEdition = ' Pro for Workstations N'
                 NewProductTypes = @(162)
             }
             @{
@@ -383,6 +394,16 @@ $OSDescriptions = @(
             @{
                 ProductEdition = ' Enterprise multi-session'
                 NewProductTypes = @(175)
+            }
+        )
+    }
+    @{
+        ProductName = 'Windows RT'
+        ProductVersions = $ClientProductVersions
+        ProductTypes = @(
+            @{
+                ProductEdition = ''
+                NewProductTypes = @(97)
             }
         )
     }
@@ -408,6 +429,10 @@ $OSDescriptions = @(
                 NewProductTypes = @(80, 159)
             }
             @{
+                ProductEdition= ' Datacenter: Azure Edition'
+                NewProductTypes = @(407)
+            }
+            @{
                 ProductEdition= ' Foundation'
                 NewProductTypes = @(33)
             }
@@ -418,8 +443,8 @@ $OSDescriptions = @(
         )
     }
     @{
-        ProductName = 'Hyper-V Server'
-        ProductVersions = $OSServerVersions
+        ProductName = 'Microsoft Hyper-V Server'
+        ProductVersions = $ServerProductVersions
         ProductTypes = @(
             @{
                 ProductEdition = ''
