@@ -7,8 +7,8 @@ Param (
     [Parameter()][String]$Encrypt = 'Optional'
 )
 
-# Requires SqlServer PowerShell module to be installed, tested with 16.5.0
-Import-Module SqlServer -MinimumVersion 16.5.0
+# Requires SqlServer PowerShell module to be installed, tested with 22.3.0
+Import-Module SqlServer -MinimumVersion 22.3.0
 
 $ClientProductVersions = @(
     # Based on https://learn.microsoft.com/en-us/windows/release-health/release-information
