@@ -440,6 +440,10 @@ $OSDescriptions = @(
                 NewProductTypes = @(407)
             }
             @{
+                ProductEdition= ' Datacenter: Azure Edition Core'
+                NewProductTypes = @(408)
+            }
+            @{
                 ProductEdition= ' Foundation'
                 NewProductTypes = @(33)
             }
