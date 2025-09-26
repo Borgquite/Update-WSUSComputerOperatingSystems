@@ -242,6 +242,40 @@ $ServerProductVersions = @(
     }
 )
 
+$AzureStackHCIProductVersions = @(
+    # Based on https://betawiki.net/wiki/Azure_Stack_HCI
+    @{
+        ProductVersion = ', version 20H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 17784
+    }
+    @{
+        ProductVersion = ', version 21H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 20348
+    }
+    @{
+        ProductVersion = ', version 22H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 20349
+    }
+    @{
+        ProductVersion = ', version 23H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 25398
+    }
+    @{
+        ProductVersion = ', version 24H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 26100
+    }
+)
+
 $OSDescriptions = @(
     @{
         ProductName = 'Windows'
@@ -250,6 +284,7 @@ $OSDescriptions = @(
             # Based on https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem
             # Based on https://learn.microsoft.com/en-us/mem/intune/fundamentals/filters-device-properties
             # Based on https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getproductinfo
+            # Based on https://betawiki.net/wiki/List_of_Windows_product_types
             @{
                 ProductEdition = ' S'
                 NewProductTypes = @(178)
@@ -460,6 +495,16 @@ $OSDescriptions = @(
             @{
                 ProductEdition = ''
                 NewProductTypes = @(42)
+            }
+        )
+    }
+    @{
+        ProductName = 'Microsoft Azure Stack HCI'
+        ProductVersions = $AzureStackHCIProductVersions
+        ProductTypes = @(
+            @{
+                ProductEdition = ''
+                NewProductTypes = @(406)
             }
         )
     }
