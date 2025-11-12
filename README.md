@@ -17,7 +17,7 @@ Legal notice: This script is provided without any warranty; without even the imp
 
 Open 'Windows PowerShell' as Administrator on your WSUS server, then run these commands:
 
-    ```powershell
+```powershell
     # Update PowerShellGet for Windows PowerShell 5.1 - https://learn.microsoft.com/en-us/powershell/gallery/powershellget/update-powershell-51?view=powershellget-3.x
     Install-Module -Name PowerShellGet -AllowClobber -Force
     # (When prompted if you want PowerShellGet to install and import the NuGet provider, respond with 'Y')
