@@ -15,7 +15,9 @@ Legal notice: This script is provided without any warranty; without even the imp
 
 # Installation Instructions
 
-Open 'Windows PowerShell' as Administrator on your WSUS server, then run these commands:
+Open 'Windows PowerShell' as Administrator on your WSUS server, then run these commands.
+
+NB If you are using an external SQL Server instance for WSUS, you will need to update `"\\.\pipe\MICROSOFT##WID\tsql\query"` in the command below to `"SQLSERVERNAME\INSTANCENAME"` to avoid errors.
 
 ```powershell
 # Update PowerShellGet for Windows PowerShell 5.1 - https://learn.microsoft.com/en-us/powershell/gallery/powershellget/update-powershell-51?view=powershellget-3.x
@@ -40,7 +42,6 @@ Register-ScheduledTask -TaskName "WSUS Update Operating Systems" `
     -WorkingDirectory '%ProgramFiles%\Update Services') `
   -Settings (New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 2)) `
   -Trigger (New-ScheduledTaskTrigger -At "00:00:00" -Daily)
-# Update \\.\pipe\MICROSOFT##WID\tsql\query in the above command to SQLSERVERNAME\INSTANCENAME when using an external SQL Server instance
 
 # Run the scheduled task immediately
 Start-ScheduledTask -TaskName "WSUS Update Operating Systems"
