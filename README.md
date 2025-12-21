@@ -32,7 +32,7 @@ Install-Module -Name SqlServer
 Set-Location "$env:ProgramFiles\Update Services"
 
 # Download latest version of the script to "%ProgramFiles%\Update Services\Update-WSUSComputerOperatingSystems.ps1"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Borgquite/Update-WSUSComputerOperatingSystems/refs/heads/main/Update-WSUSComputerOperatingSystems.ps1" -OutFile Update-WSUSComputerOperatingSystems.ps1
+Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/Borgquite/Update-WSUSComputerOperatingSystems/refs/heads/main/Update-WSUSComputerOperatingSystems.ps1" -OutFile Update-WSUSComputerOperatingSystems.ps1
 
 # Create a new scheduled task to run at midnight daily for up to 2 hours on a local Windows Internal Database instance
 Register-ScheduledTask -TaskName "WSUS Update Operating Systems" `
