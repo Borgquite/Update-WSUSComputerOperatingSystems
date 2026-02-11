@@ -158,6 +158,20 @@ $ClientProductVersions = @(
         OSMinorVersion = 0
         OSBuildNumber = 26200
     }
+    @{
+        ProductVersion = ' 11'
+        ProductRelease = ' 26H1'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 28000
+    }
+    @{
+        ProductVersion = ' 11'
+        ProductRelease = ' 26H2'
+        OSMajorVersion = 10
+        OSMinorVersion = 0
+        OSBuildNumber = 26300
+    }
 )
 
 $ServerProductVersions = @(
